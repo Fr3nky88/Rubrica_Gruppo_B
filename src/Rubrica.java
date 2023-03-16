@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 /**
- *
- *  Scrivi un programma Java che simuli una rubrica. L'utente deve essere in grado di aggiungere, cercare, visualizzare e cancellare contatti dalla rubrica.
- *
+ * Scrivi un programma Java che simuli una rubrica. L'utente deve essere in grado di aggiungere, cercare, visualizzare e cancellare contatti dalla rubrica.
  */
 public class Rubrica {
 
@@ -29,10 +28,27 @@ public class Rubrica {
 
             switch (scelta) {
                 case 1:
+                    Contatto c1 = new Contatto();
+                    System.out.println("Inserisci il nome: ");
+                    String nome1 = input.next();
+                    c1.setNome(nome1);
+                    System.out.println("Inserisci il cognome: ");
+                    String cognome1 = input.next();
+                    c1.setCognome(cognome1);
+                    System.out.println("Inserisci il numero di telefono: ");
+                    String numero1 = input.next();
+                    c1.setTelefono(numero1);
+                    System.out.println("Contatto importato: " + c1);
+                    rubrica.add(c1);
                     break;
                 case 2:
                     break;
                 case 3:
+                    int i = 1;
+                    for (Contatto contatto1 : rubrica) {
+                        System.out.println("Contatto n° " + i + " " + contatto1);
+                        i++;
+                    }
                     break;
                 case 4:
                     break;
@@ -47,7 +63,6 @@ public class Rubrica {
         }
 
 
-
     }
 }
 
@@ -59,7 +74,8 @@ class Contatto {
     private String cognome;
     private String telefono;
 
-    public Contatto() {}
+    public Contatto() {
+    }
 
     public Contatto(String nome, String cognome, String telefono) {
         this.nome = nome;
@@ -81,6 +97,7 @@ class Contatto {
 
     /**
      * Metodo che imposta il nome del contatto
+     *
      * @param nome
      */
     public void setNome(String nome) {
