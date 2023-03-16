@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /**
  *
@@ -8,16 +9,57 @@ import java.util.Scanner;
 public class Rubrica {
 
     public static void main(String[] args) {
-        ArrayList<Contatto> rubrica = new ArrayList<>();
+        List<Contatto> rubrica = new ArrayList<>();
         Scanner input = new Scanner(System.in);
+//        System.out.println("Digita un numero: ");
+//        int scelta = input.nextInt();
+//        System.out.println("La scelta effettuata è: " + scelta);
+
+        boolean running = true;
+
+        while (running) {
+            System.out.println("Seleziona un'operazione:");
+            System.out.println("1. Aggiungi contatto");
+            System.out.println("2. Cerca contatto");
+            System.out.println("3. Visualizza tutti i contatti");
+            System.out.println("4. Cancella contatto");
+            System.out.println("0. Esci");
+
+            int scelta = input.nextInt();
+
+            switch (scelta) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 0:
+                    running = false;
+                    System.out.println("Grazie per aver utilizzato la nostra rubrica!");
+                    break;
+                default:
+                    System.out.println("Errore! non hai selezionato una voce del menu valida!");
+            }
+
+        }
+
+
 
     }
 }
 
+/**
+ * Classe che reappresenta il contatto nella nostra rubrica
+ */
 class Contatto {
     private String nome;
     private String cognome;
     private String telefono;
+
+    public Contatto() {}
 
     public Contatto(String nome, String cognome, String telefono) {
         this.nome = nome;
@@ -35,6 +77,22 @@ class Contatto {
 
     public String getTelefono() {
         return telefono;
+    }
+
+    /**
+     * Metodo che imposta il nome del contatto
+     * @param nome
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String toString() {
