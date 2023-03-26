@@ -73,6 +73,6 @@ public class Indirizzo {
 
     @Override
     public String toString() {
-        return "" + via + " " + citta + " " + numeroCivico + " " + cap + " " + proScelta;
+        return "" + via + " " + citta + " n° " + numeroCivico + " " + cap + " (" + proScelta+")";
     }
 }

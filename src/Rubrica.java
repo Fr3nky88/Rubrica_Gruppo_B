@@ -39,19 +39,19 @@ public class Rubrica {
                     // modificato next() con nextLine() per permettere d'inserire il secondo nome
                     // o anche per evitare l'errore scrivendo il numero con degli spazi (.trim() non funziona con lo scanner);
                     Contatto c1 = new Contatto();
-                    System.out.println("Inserisci il nome: ");
+                    System.out.println("Inserisci il NOTO: ");
                     String nome1 = input.nextLine();
                     c1.setNome(nome1);
 
-                    System.out.println("Inserisci il cognome: ");
+                    System.out.println("Inserisci il COGNOME: ");
                     String cognome1 = input.nextLine();
                     c1.setCognome(cognome1);
 
-                    System.out.println("Inserisci il numero di telefono: ");
+                    System.out.println("Inserisci il NUMERO di TELEFONO: ");
                     String numero1 = input.nextLine();
                     c1.setTelefono(numero1);
 
-                    System.out.println("Vuoi aggiungere anche l'indirizzo?");
+                    System.out.println("Vuoi aggiungere anche L'INDIRIZZO?");
                     System.out.println("Premi 1: SI");
                     System.out.println("Premi 2: NO");
                     String scelta1 = input.next();
@@ -140,16 +140,16 @@ public class Rubrica {
         System.out.println("Inserisci la VIA");
         ind1.setVia(input.nextLine());
         // città
-        System.out.println("Inserisci la Città");
+        System.out.println("Inserisci la CITTÀ");
         ind1.setCitta(input.nextLine());
         // n° civico
-        System.out.println("Inserisci il Numero Civico");
+        System.out.println("Inserisci il NUNERO CIVICO");
         ind1.setNumeroCivico(input.nextLine());
         // CAP
         System.out.println("Inserisci il CAP");
         ind1.setCap(input.nextLine());
         // provincia proveniente da una classe
-        System.out.println("Scegli la provincia");
+        System.out.println("Inserisci il numero corrispondente alla PROVINCIA");
         int n = 1;
         for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
             System.out.println(n + " " + ind1.getTutteProvince().get(i));
