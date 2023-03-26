@@ -1,3 +1,9 @@
+package Rubrica_Gruppo_B.src;
+
+import Rubrica_Gruppo_B.src.models.Contatto;
+import Rubrica_Gruppo_B.src.models.Indirizzo;
+import Rubrica_Gruppo_B.src.models.Province;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +16,8 @@ public class Rubrica {
     public static void main(String[] args) {
         List<Contatto> rubrica = new ArrayList<>();
         Scanner input = new Scanner(System.in);
+        Province soloPerImport = new Province();
+
 
         boolean running = true;
 
@@ -34,15 +42,34 @@ public class Rubrica {
                     System.out.println("Inserisci il nome: ");
                     String nome1 = input.nextLine();
                     c1.setNome(nome1);
+
                     System.out.println("Inserisci il cognome: ");
                     String cognome1 = input.nextLine();
                     c1.setCognome(cognome1);
+
                     System.out.println("Inserisci il numero di telefono: ");
                     String numero1 = input.nextLine();
                     c1.setTelefono(numero1);
-                    System.out.println("Contatto importato: " + c1);
-                    rubrica.add(c1);
-                    break;
+
+                    System.out.println("Vuoi aggiungere anche l'indirizzo?");
+                    System.out.println("Premi 1: SI");
+                    System.out.println("Premi 2: NO");
+                    String scelta1 = input.next();
+                    if (scelta1.equals("1")) {
+
+                        Indirizzo ind1 = aggiungiIndirizzo(input);
+                        c1.setIndirizzo(ind1);
+                        System.out.println("Contatto importato: " + c1);
+                        rubrica.add(c1);
+                        break;
+                    }
+
+                    if (scelta1.equals("2")) {
+                        System.out.println("Contatto importato: " + c1);
+                        rubrica.add(c1);
+                        break;
+                    }
+
 
                 case 2: // Cerca contatto;
 
@@ -97,56 +124,52 @@ public class Rubrica {
             }
         }
     }
-}
-
-/**
- * Classe che reappresenta il contatto nella nostra rubrica
- */
-class Contatto {
-    private String nome;
-    private String cognome;
-    private String telefono;
-
-    public Contatto() {
-    }
-
-    public Contatto(String nome, String cognome, String telefono) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.telefono = telefono;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
 
     /**
-     * Metodo che imposta il nome del contatto
+     * Metodo che permette di aggiungere un
+     * indirizzo al contatto
      *
-     * @param nome
+     * @param input
      */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public static Indirizzo aggiungiIndirizzo(Scanner input) {
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
+        Indirizzo ind1 = new Indirizzo();
+        // next line vuoto necessario se no fa partire subito l'inserimento della città saltando la via;
+        input.nextLine();
+        //via
+        System.out.println("Inserisci la VIA");
+        ind1.setVia(input.nextLine());
+        // città
+        System.out.println("Inserisci la Città");
+        ind1.setCitta(input.nextLine());
+        // n° civico
+        System.out.println("Inserisci il Numero Civico");
+        ind1.setNumeroCivico(input.nextLine());
+        // CAP
+        System.out.println("Inserisci il CAP");
+        ind1.setCap(input.nextLine());
+        // provincia proveniente da una classe
+        System.out.println("Scegli la provincia");
+        int n = 1;
+        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
+            System.out.println(n + " " + ind1.getTutteProvince().get(i));
+            n++;
+        }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+        int seleProv = input.nextInt();
+        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
+            if (seleProv == (i + 1)) {
+                ind1.setProScelta(ind1.getTutteProvince().get(i));
+            }
+        }
 
-    public String toString() {
-        return nome + " " + cognome + ": " + telefono;
-    }
 
+        return ind1;
+    }
 }
+
+
+/**
+ * Classe che rappresenta il contatto nella nostra rubrica
+ */
+
