@@ -65,7 +65,7 @@ public class Rubrica {
                     }
 
                     if (scelta1.equals("2")) {
-                        System.out.println("Contatto importato: " + c1);
+                        System.out.println("Contatto importato: " + c1.toString1());
                         rubrica.add(c1);
                         break;
                     }

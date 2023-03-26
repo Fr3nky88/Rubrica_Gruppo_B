@@ -57,4 +57,7 @@ public class Contatto {
     public String toString() {
         return nome + " " + cognome + " " + telefono + " " + indirizzo;
     }
+    public String toString1() {
+        return nome + " " + cognome + " " + telefono;
+    }
 }
