@@ -114,7 +114,6 @@ public class Province {
 
     private static List<String> province = new ArrayList<>();
 
-
     public Province() {
         adderProvince();
     }

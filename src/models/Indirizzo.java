@@ -7,7 +7,6 @@ public class Indirizzo {
     private String citta;
     private String numeroCivico;
     private String cap;
-
     private List<String> tutteProvince = Province.getProvince();
     private String proScelta;
 

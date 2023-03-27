@@ -39,7 +39,7 @@ public class Rubrica {
                     // modificato next() con nextLine() per permettere d'inserire il secondo nome
                     // o anche per evitare l'errore scrivendo il numero con degli spazi (.trim() non funziona con lo scanner);
                     Contatto c1 = new Contatto();
-                    System.out.println("Inserisci il NOTO: ");
+                    System.out.println("Inserisci il NOME: ");
                     String nome1 = input.nextLine();
                     c1.setNome(nome1);
 
@@ -77,9 +77,9 @@ public class Rubrica {
                     String cont1 = input.nextLine();
 
                     for (Contatto contatto1 : rubrica) {
-                        if (cont1.equals(contatto1.getNome())
-                                || cont1.equals(contatto1.getCognome())
-                                || cont1.equals(contatto1.getTelefono())) {
+                        if (cont1.toLowerCase().equals(contatto1.getNome().toLowerCase())
+                                || cont1.toLowerCase().equals(contatto1.getCognome().toLowerCase())
+                                || cont1.toLowerCase().equals(contatto1.getTelefono().toLowerCase())) {
                             System.out.println("Il contatto: " + cont1 + " è:\n" + contatto1);
                         }
                     }
@@ -89,7 +89,7 @@ public class Rubrica {
 
                     int i = 1;
                     for (Contatto contatto1 : rubrica) {
-                        System.out.println("Contatto n° " + i + ", " + contatto1);
+                        System.out.println("Contatto n° " + i + ", " + contatto1 + "\n");
                         i++;
                     }
                     break;
@@ -151,8 +151,8 @@ public class Rubrica {
         // provincia proveniente da una classe
         System.out.println("Inserisci il numero corrispondente alla PROVINCIA");
         int n = 1;
-        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
-            System.out.println(n + " " + ind1.getTutteProvince().get(i));
+        for (int i = 0; i < Province.getProvince().size(); i++) {
+            System.out.println(n + " " + Province.getProvince().get(i));
             n++;
         }
 
@@ -162,8 +162,6 @@ public class Rubrica {
                 ind1.setProScelta(ind1.getTutteProvince().get(i));
             }
         }
-
-
         return ind1;
     }
 }
