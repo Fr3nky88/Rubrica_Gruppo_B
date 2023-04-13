@@ -2,38 +2,53 @@ package Rubrica_Gruppo_B.src;
 
 import Rubrica_Gruppo_B.src.models.Contatto;
 import Rubrica_Gruppo_B.src.models.Indirizzo;
+import Rubrica_Gruppo_B.src.models.ListaContatti;
 import Rubrica_Gruppo_B.src.models.Province;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Rubrica {
-    private final Path RUBRICA_FILE_PATH = Path.of(System.getProperty("user.name"), "Rubrica", "Rubrica.csv");
+    private final Path RUBRICA_FILE_PATH = Path.of(System.getProperty("user.home"), "Rubrica", "Rubrica.csv");
+    private ListaContatti rubrica;
 
     public Rubrica() throws IOException {
+        this.rubrica = new ListaContatti();
         createDirectory();
+        caricaContatti();
     }
 
     /**
-     * Metodo che permette la scrittura del contatto
+     * Metodo che permette la scrittura del contatto nel file csv
      */
-    public void scriviContatto(Contatto contatto) {
+    public void salvaContatto(Contatto contatto) {
         String cont = contatto.toString1();
+        String percorso = RUBRICA_FILE_PATH.toString();
         try {
-            if (Files.exists(RUBRICA_FILE_PATH)) {
-
-            }
-            if (Files.notExists(RUBRICA_FILE_PATH)) {
-                Files.writeString(RUBRICA_FILE_PATH, cont);
-            }
+            FileWriter file = new FileWriter(percorso, true);
+            file.append(cont);
+            file.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void caricaContatti() throws IOException {
+        List<String> listaContatti = Files.readAllLines(RUBRICA_FILE_PATH);
+        for (String st : listaContatti) {
+            String[] arrCont = st.split(",");
+            Indirizzo indirizzo = null;
+            if (arrCont.length == 8) {
+                indirizzo = new Indirizzo(arrCont[3],arrCont[4],arrCont[5],arrCont[6],arrCont[7]);
+            }
+            Contatto cont1 = new Contatto(arrCont[0], arrCont[1], arrCont[2], indirizzo);
+            rubrica.add(cont1);
+        }
+
     }
 
     /**
@@ -80,7 +95,6 @@ public class Rubrica {
      * Avvio della rubrica
      */
     public void start() {
-        List<Contatto> rubrica = new ArrayList<>();
         Scanner input = new Scanner(System.in);
 
 
@@ -126,14 +140,14 @@ public class Rubrica {
                         c1.setIndirizzo(ind1);
                         System.out.println("Contatto importato: " + c1);
                         rubrica.add(c1);
-                        scriviContatto(c1);
+                        salvaContatto(c1);
                         break;
                     }
 
                     if (scelta1.equals("2")) {
                         System.out.println("Contatto importato: " + c1);
                         rubrica.add(c1);
-                        scriviContatto(c1);
+                        salvaContatto(c1);
                         break;
                     }
 
@@ -192,6 +206,11 @@ public class Rubrica {
         }
     }
 
+    /**
+     * Metodo che permetta la creazione della directory e del file che serve
+     *
+     * @throws IOException
+     */
     private void createDirectory() throws IOException {
 
         String userHome = System.getProperty("user.home");

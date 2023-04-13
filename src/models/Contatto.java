@@ -65,6 +65,6 @@ public class Contatto {
         if (indirizzo == null) {
             return nome + "," + cognome + "," + telefono + "\n";
         }
-        return nome + "," + cognome + "," + telefono + "," + indirizzo + "\n";
+        return nome + "," + cognome + "," + telefono + "," + indirizzo.toString1() + "\n";
     }
 }

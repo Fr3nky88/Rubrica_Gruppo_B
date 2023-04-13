@@ -16,6 +16,10 @@ public class Main {
         }catch (IOException e){
             System.out.println("Non posso scrivere sul disco!!");
             System.exit(0);
+        }catch (Exception e){
+            System.err.println("ERRORE Generico");
+            e.printStackTrace(); // riepilogo degli errori
+            System.exit(0);
         }
 
     }
