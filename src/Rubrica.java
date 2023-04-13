@@ -4,19 +4,84 @@ import Rubrica_Gruppo_B.src.models.Contatto;
 import Rubrica_Gruppo_B.src.models.Indirizzo;
 import Rubrica_Gruppo_B.src.models.Province;
 
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Scrivi un programma Java che simuli una rubrica. L'utente deve essere in grado di aggiungere, cercare, visualizzare e cancellare contatti dalla rubrica.
- */
 public class Rubrica {
+    private final Path RUBRICA_FILE_PATH = Path.of(System.getProperty("user.name"), "Rubrica", "Rubrica.csv");
 
-    public static void main(String[] args) {
+    public Rubrica() throws IOException {
+        createDirectory();
+    }
+
+    /**
+     * Metodo che permette la scrittura del contatto
+     */
+    public void scriviContatto(Contatto contatto) {
+        String cont = contatto.toString1();
+        try {
+            if (Files.exists(RUBRICA_FILE_PATH)) {
+
+            }
+            if (Files.notExists(RUBRICA_FILE_PATH)) {
+                Files.writeString(RUBRICA_FILE_PATH, cont);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Metodo che permette di aggiungere un
+     * indirizzo al contatto
+     *
+     * @param input
+     */
+    public Indirizzo aggiungiIndirizzo(Scanner input) {
+
+        Indirizzo ind1 = new Indirizzo();
+        // next line vuoto necessario se no fa partire subito l'inserimento della città saltando la via;
+        input.nextLine();
+        //via
+        System.out.println("Inserisci la VIA");
+        ind1.setVia(input.nextLine());
+        // città
+        System.out.println("Inserisci la CITTÀ");
+        ind1.setCitta(input.nextLine());
+        // n° civico
+        System.out.println("Inserisci il NUNERO CIVICO");
+        ind1.setNumeroCivico(input.nextLine());
+        // CAP
+        System.out.println("Inserisci il CAP");
+        ind1.setCap(input.nextLine());
+        // provincia proveniente da una classe
+        System.out.println("Inserisci il numero corrispondente alla PROVINCIA");
+        int n = 1;
+        for (int i = 0; i < Province.getProvince().size(); i++) {
+            System.out.println(n + " " + Province.getProvince().get(i));
+            n++;
+        }
+
+        int seleProv = input.nextInt();
+        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
+            if (seleProv == (i + 1)) {
+                ind1.setProScelta(ind1.getTutteProvince().get(i));
+            }
+        }
+        return ind1;
+    }
+
+    /**
+     * Avvio della rubrica
+     */
+    public void start() {
         List<Contatto> rubrica = new ArrayList<>();
         Scanner input = new Scanner(System.in);
-        Province soloPerImport = new Province();
 
 
         boolean running = true;
@@ -61,12 +126,14 @@ public class Rubrica {
                         c1.setIndirizzo(ind1);
                         System.out.println("Contatto importato: " + c1);
                         rubrica.add(c1);
+                        scriviContatto(c1);
                         break;
                     }
 
                     if (scelta1.equals("2")) {
                         System.out.println("Contatto importato: " + c1);
                         rubrica.add(c1);
+                        scriviContatto(c1);
                         break;
                     }
 
@@ -125,49 +192,21 @@ public class Rubrica {
         }
     }
 
-    /**
-     * Metodo che permette di aggiungere un
-     * indirizzo al contatto
-     *
-     * @param input
-     */
-    public static Indirizzo aggiungiIndirizzo(Scanner input) {
+    private void createDirectory() throws IOException {
 
-        Indirizzo ind1 = new Indirizzo();
-        // next line vuoto necessario se no fa partire subito l'inserimento della città saltando la via;
-        input.nextLine();
-        //via
-        System.out.println("Inserisci la VIA");
-        ind1.setVia(input.nextLine());
-        // città
-        System.out.println("Inserisci la CITTÀ");
-        ind1.setCitta(input.nextLine());
-        // n° civico
-        System.out.println("Inserisci il NUNERO CIVICO");
-        ind1.setNumeroCivico(input.nextLine());
-        // CAP
-        System.out.println("Inserisci il CAP");
-        ind1.setCap(input.nextLine());
-        // provincia proveniente da una classe
-        System.out.println("Inserisci il numero corrispondente alla PROVINCIA");
-        int n = 1;
-        for (int i = 0; i < Province.getProvince().size(); i++) {
-            System.out.println(n + " " + Province.getProvince().get(i));
-            n++;
+        String userHome = System.getProperty("user.home");
+
+        // creazione cartella
+        try {
+            Files.createDirectory(Path.of(userHome, "Rubrica"));
+        } catch (FileAlreadyExistsException e) {
         }
 
-        int seleProv = input.nextInt();
-        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
-            if (seleProv == (i + 1)) {
-                ind1.setProScelta(ind1.getTutteProvince().get(i));
-            }
+        // creazione file
+        try {
+            Files.createFile(RUBRICA_FILE_PATH);
+        } catch (FileAlreadyExistsException e) {
         }
-        return ind1;
+
     }
 }
-
-
-/**
- * Classe che rappresenta il contatto nella nostra rubrica
- */
-

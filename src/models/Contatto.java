@@ -56,8 +56,15 @@ public class Contatto {
     @Override
     public String toString() {
         if (indirizzo == null) {
-            return "\n☻ "+nome + " " + cognome + "\n☎ " + telefono + "\n";
+            return "\n☻ " + nome + " " + cognome + "\n☎ " + telefono + "\n";
         }
-        return "\n☻ "+nome + " " + cognome + "\n☎ " + telefono + "\n☗ " + indirizzo;
+        return "\n☻ " + nome + " " + cognome + "\n☎ " + telefono + "\n☗ " + indirizzo;
+    }
+
+    public String toString1() {
+        if (indirizzo == null) {
+            return nome + "," + cognome + "," + telefono + "\n";
+        }
+        return nome + "," + cognome + "," + telefono + "," + indirizzo + "\n";
     }
 }
