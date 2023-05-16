@@ -1,5 +1,4 @@
-package Rubrica_Gruppo_B.src;
-
+package it.develhope.rubrica;
 
 import java.io.IOException;
 
