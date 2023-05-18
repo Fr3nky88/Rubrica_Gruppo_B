@@ -1,11 +1,14 @@
 package it.develhope.rubrica.models;
 
+import java.math.BigInteger;
+
 public class Contatto {
+
+    private BigInteger id;
     private String nome;
     private String cognome;
     private String telefono;
     private Indirizzo indirizzo;
-
     private String email;
 
     public Contatto() {
@@ -16,6 +19,14 @@ public class Contatto {
         this.cognome = cognome;
         this.telefono = telefono;
         this.indirizzo = indirizzo;
+    }
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
     }
 
     public String getNome() {

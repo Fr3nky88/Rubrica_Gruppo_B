@@ -5,6 +5,7 @@ import it.develhope.rubrica.models.Indirizzo;
 import it.develhope.rubrica.models.ListaContatti;
 import it.develhope.rubrica.models.Province;
 import it.develhope.rubrica.services.IRubricaService;
+import it.develhope.rubrica.services.RubricaServicesDatabase;
 import it.develhope.rubrica.services.RubricaServicesFile;
 
 import java.io.FileWriter;
@@ -23,7 +24,8 @@ public class Rubrica {
 
     public Rubrica() throws Exception {
         this.rubrica = new ArrayList<>();
-        service = new RubricaServicesFile();
+//        service = new RubricaServicesFile();
+        service = new RubricaServicesDatabase();
         service.init();
         caricaContatti();
     }
