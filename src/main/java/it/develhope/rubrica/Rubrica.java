@@ -26,6 +26,7 @@ public class Rubrica {
         this.rubrica = new ArrayList<>();
 //        service = new RubricaServicesFile();
         service = new RubricaServicesDatabase();
+        service.createDatabase(); // per creare un database comune per tutti con le stesse credenziali. è corretto?
         service.init();
         caricaContatti();
     }
@@ -85,13 +86,13 @@ public class Rubrica {
     /**
      * Avvio della rubrica
      */
-    public void start() {
+    public void start() throws Exception {
         Scanner input = new Scanner(System.in);
-
 
         boolean running = true;
 
         while (running) {
+
             System.out.println("Seleziona un'operazione:");
             System.out.println("1. Aggiungi contatto");
             System.out.println("2. Cerca contatto");
@@ -105,7 +106,6 @@ public class Rubrica {
 
             switch (scelta) {
                 case 1: // Aggiungi contatto;
-
                     // modificato next() con nextLine() per permettere d'inserire il secondo nome
                     // o anche per evitare l'errore scrivendo il numero con degli spazi (.trim() non funziona con lo scanner);
                     Contatto c1 = new Contatto();
@@ -147,7 +147,7 @@ public class Rubrica {
 
                     System.out.println("Inserisci il NOME o il COGNOME o il NUMERO del contatto da cercare: ");
                     String cont1 = input.nextLine();
-
+                    service.visualizzaContatto(Integer.valueOf(cont1));
                     for (Contatto contatto1 : rubrica) {
                         if (cont1.toLowerCase().equals(contatto1.getNome().toLowerCase())
                                 || cont1.toLowerCase().equals(contatto1.getCognome().toLowerCase())

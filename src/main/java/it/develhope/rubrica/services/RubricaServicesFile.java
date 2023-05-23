@@ -16,6 +16,10 @@ public class RubricaServicesFile implements IRubricaService {
     private final Path RUBRICA_FILE_PATH = Path.of(System.getProperty("user.home"), "Rubrica", "Rubrica.csv");
 
     @Override
+    public void createDatabase() { // qui non l'ho implementato perchè non credo serva in questa classe
+    }
+
+    @Override
     public void init() throws IOException {
         createDirectory();
     }
@@ -48,6 +52,11 @@ public class RubricaServicesFile implements IRubricaService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    @Override
+    public void visualizzaContatto(Integer i) throws Exception {
 
     }
 

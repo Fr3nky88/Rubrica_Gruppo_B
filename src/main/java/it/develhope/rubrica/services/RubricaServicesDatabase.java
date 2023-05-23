@@ -15,9 +15,50 @@ public class RubricaServicesDatabase implements IRubricaService {
     public RubricaServicesDatabase() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
     }
+    @Override
+    public void createDatabase(){ // crea un database comune per tutti con le stesse credenziali
+        try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/", USERNAME, PASSWORD);
+            Statement stmt = conn.createStatement();
+        ) {
+            String sql = "CREATE DATABASE rubricab";
+            stmt.executeUpdate(sql);
+            System.out.println("Database created successfully...");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void init() {
+        Connection conn = null;
+
+        try {
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+            Statement statement = conn.createStatement();
+
+            String createQuery =
+                    "CREATE TABLE IF NOT EXISTS Contatti" +
+                            " (id INTEGER NOT NULL AUTO_INCREMENT," +
+                            "nome VARCHAR(255)," +
+                            "cognome VARCHAR(255)," +
+                            "telefono VARCHAR(255) UNIQUE," +
+                            "email VARCHAR(255),"+
+                            "CONSTRAINT Contatti PRIMARY KEY (_id)" +
+                            " );";
+
+
+            statement.executeUpdate(createQuery);
+
+            statement.close();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Tabella Contatti creata");
 
     }
 
@@ -96,7 +137,51 @@ public class RubricaServicesDatabase implements IRubricaService {
     public void salvaContatto(Contatto c) {
         // TODO: sviluppare con l'insert
         // https://www.tutorialspoint.com/jdbc/jdbc-insert-records.htm
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            Statement statement = conn.createStatement();
 
+            String insertQuery = "INSERT INTO Contatti (nome, cognome, telefono, email) VALUES ('" +
+                    c.getNome() + "', '"
+                    + c.getCognome() + "', '"
+                    + c.getTelefono() + "', '"
+                    + c.getEmail() + "');";
+
+            statement.executeUpdate(insertQuery);
+
+
+            statement.close();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Tabella Contatti aggiornata");
+
+    }
+
+    @Override
+    public void visualizzaContatto(Integer i) throws Exception {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            Statement statement = conn.createStatement();
+
+            String findQuery = "SELECT * FROM Contatti WHERE ID = " + i;
+
+            statement.executeUpdate(findQuery);
+
+
+            statement.close();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Tabella Contatti aggiornata");
     }
 
     private Connection getConnection() throws SQLException {
