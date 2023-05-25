@@ -1,13 +1,17 @@
 package it.develhope.rubrica.models;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class Indirizzo {
+    private BigInteger id;
     private String via;
     private String citta;
     private String numeroCivico;
     private String cap;
     private String provincia;
+
+
 
     public Indirizzo() {
     }
@@ -20,6 +24,13 @@ public class Indirizzo {
         this.provincia = provincia;
     }
 
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
     public String getVia() {
         return via;
     }
