@@ -73,11 +73,14 @@ public class Rubrica {
             n++;
         }
 
-        int seleProv = input.nextInt();
-        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
-            if (seleProv == (i + 1)) {
-                ind1.setProScelta(ind1.getTutteProvince().get(i));
-            }
+        String seleProv = input.nextLine();
+//        for (int i = 0; i < ind1.getTutteProvince().size(); i++) {
+//            if (seleProv == (i + 1)) {
+//                ind1.setProScelta(ind1.getTutteProvince().get(i));
+//            }
+//        }
+        if (Province.getProvince().contains(seleProv)) {
+            ind1.setProvincia(seleProv);
         }
         return ind1;
     }
